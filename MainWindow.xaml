@@ -828,29 +828,31 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox x:Name="txtExtension1" Width="100" Text="Hello,世界No.1" Margin="5"/>
                                     <TextBlock>ExtractUpper:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ExtractUpper}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=ExtractUpper}}"/>
                                     <TextBlock>, ExtractDigits:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ExtractDigits}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=ExtractDigits}}"/>
                                     <TextBlock>, ExtractChinese:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ExtractChinese}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension1, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=ExtractChinese}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox x:Name="txtExtension2" Width="100" Text="ab c" Margin="5"/>
                                     <TextBlock>ToProperCase is:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ToProperCase}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=ToProperCase}}"/>
                                     <TextBlock>, Repeat(2) is:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=Repeat,ParameterStr=2}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=Repeat,ParameterStr=2}}"/>
                                     <TextBlock>, GetCharCount is:</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=GetCharCount}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtExtension2, Converter={conv:MethodConverter TargetType={x:Type ext:StringExtensions},MethodName=GetCharCount}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Slider x:Name="sldExten" Width="100" Minimum="1" Maximum="100" Margin="5" TickFrequency="1"/>
-                                    <TextBlock>ToChineseNumber is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ToChineseNumber}}"/>
-                                    <TextBlock>, ToRomanNumeral is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ToRomanNumeral}}"/>
+                                    <TextBlock>ToChinese is</TextBlock>
+                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToChineseNumber}}"/>
+                                    <TextBlock> UpperCase </TextBlock>
+                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToChineseNumber,ParameterStr=true}}"/>
+                                    <TextBlock>, ToRoman is</TextBlock>
+                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToRomanNumeral}}"/>
                                     <TextBlock>, IsPrime is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=IsPrime}}"/>
+                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=IsPrime}}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -893,9 +895,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Slider x:Name="sldChainExt" Width="100" Minimum="0" Maximum="360" Margin="5" TickFrequency="15"/>
                                     <TextBlock>ToRadians &amp; Sin is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldChainExt, Converter={conv:MethodConverter TargetType={x:Type sys:Math},MethodName=Sin, FromConverter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ToRadians}},StringFormat=0.0000}"/>
+                                    <TextBlock Text="{Binding Value, ElementName=sldChainExt, Converter={conv:MethodConverter TargetType={x:Type sys:Math},MethodName=Sin, FromConverter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToRadians}},StringFormat=0.0000}"/>
                                     <TextBlock>, ToRadians &amp; Cos is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldChainExt, Converter={conv:MethodConverter TargetType={x:Type sys:Math},MethodName=Cos, FromConverter={conv:MethodConverter TargetType={x:Type ext:CommonExtensions},MethodName=ToRadians}},StringFormat=0.0000}"/>
+                                    <TextBlock Text="{Binding Value, ElementName=sldChainExt, Converter={conv:MethodConverter TargetType={x:Type sys:Math},MethodName=Cos, FromConverter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToRadians}},StringFormat=0.0000}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
