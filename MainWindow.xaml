@@ -19,71 +19,77 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="2"/>
             </Style>
-            <conv:XamlSwitchConverter x:Key="StatusSwitchConverter" DefaultValue="未知状态">
-                <conv:XamlSwitchConverter.Cases>
-                    <conv:XamlSwitchCase When="Active" Then="激活"/>
-                    <conv:XamlSwitchCase When="Inactive" Then="未激活"/>
-                    <conv:XamlSwitchCase When="Pending" Then="待处理"/>
-                    <conv:XamlSwitchCase When="Deleted" Then="已删除"/>
-                </conv:XamlSwitchConverter.Cases>
-            </conv:XamlSwitchConverter>
-            <conv:XamlSwitchConverter x:Key="OrderStatusStyleConverter">
-                <conv:XamlSwitchConverter.Cases>
-                    <conv:XamlSwitchCase When="Pending">
-                        <conv:XamlSwitchCase.Then>
+
+            <x:Array Type="sys:String" x:Key="StringSource">
+                <sys:String>first</sys:String>
+                <sys:String>second</sys:String>
+                <sys:String>third</sys:String>
+            </x:Array>
+            <conv:WhenThenConverter x:Key="StatusSwitchConverter" DefaultValue="未知状态">
+                <conv:WhenThenConverter.Cases>
+                    <conv:SwitchCase When="Active" Then="激活"/>
+                    <conv:SwitchCase When="Inactive" Then="未激活"/>
+                    <conv:SwitchCase When="Pending" Then="待处理"/>
+                    <conv:SwitchCase When="Deleted" Then="已删除"/>
+                </conv:WhenThenConverter.Cases>
+            </conv:WhenThenConverter>
+            <conv:WhenThenConverter x:Key="OrderStatusStyleConverter">
+                <conv:WhenThenConverter.Cases>
+                    <conv:SwitchCase When="Pending">
+                        <conv:SwitchCase.Then>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="#E1DC81"/>
                                 <Setter Property="BorderBrush" Value="#FF9800"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                             </Style>
-                        </conv:XamlSwitchCase.Then>
-                    </conv:XamlSwitchCase>
-                    <conv:XamlSwitchCase When="Approved">
-                        <conv:XamlSwitchCase.Then>
+                        </conv:SwitchCase.Then>
+                    </conv:SwitchCase>
+                    <conv:SwitchCase When="Approved">
+                        <conv:SwitchCase.Then>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="#C8DFAD"/>
                                 <Setter Property="BorderBrush" Value="#4CAF50"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                             </Style>
-                        </conv:XamlSwitchCase.Then>
-                    </conv:XamlSwitchCase>
-                    <conv:XamlSwitchCase When="Shipped">
-                        <conv:XamlSwitchCase.Then>
+                        </conv:SwitchCase.Then>
+                    </conv:SwitchCase>
+                    <conv:SwitchCase When="Shipped">
+                        <conv:SwitchCase.Then>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="#85B7DF"/>
                                 <Setter Property="BorderBrush" Value="#2196F3"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                             </Style>
-                        </conv:XamlSwitchCase.Then>
-                    </conv:XamlSwitchCase>
-                    <conv:XamlSwitchCase When="Delivered">
-                        <conv:XamlSwitchCase.Then>
+                        </conv:SwitchCase.Then>
+                    </conv:SwitchCase>
+                    <conv:SwitchCase When="Delivered">
+                        <conv:SwitchCase.Then>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="#98DF9D"/>
                                 <Setter Property="BorderBrush" Value="#8BC34A"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                             </Style>
-                        </conv:XamlSwitchCase.Then>
-                    </conv:XamlSwitchCase>
-                    <conv:XamlSwitchCase When="Cancelled">
-                        <conv:XamlSwitchCase.Then>
+                        </conv:SwitchCase.Then>
+                    </conv:SwitchCase>
+                    <conv:SwitchCase When="Cancelled">
+                        <conv:SwitchCase.Then>
                             <Style TargetType="Border">
                                 <Setter Property="Background" Value="#E36F80"/>
                                 <Setter Property="BorderBrush" Value="#F44336"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Opacity" Value="0.7"/>
                             </Style>
-                        </conv:XamlSwitchCase.Then>
-                    </conv:XamlSwitchCase>
-                </conv:XamlSwitchConverter.Cases>
-                <conv:XamlSwitchConverter.DefaultValue>
+                        </conv:SwitchCase.Then>
+                    </conv:SwitchCase>
+                </conv:WhenThenConverter.Cases>
+                <conv:WhenThenConverter.DefaultValue>
                     <Style TargetType="Border">
                         <Setter Property="Background" Value="#F5F5F5"/>
                         <Setter Property="BorderBrush" Value="#9E9E9E"/>
                         <Setter Property="BorderThickness" Value="1"/>
                     </Style>
-                </conv:XamlSwitchConverter.DefaultValue>
-            </conv:XamlSwitchConverter>
+                </conv:WhenThenConverter.DefaultValue>
+            </conv:WhenThenConverter>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -444,8 +450,12 @@
                         <GroupBox Header="TextTruncate">
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Name="txtStr2" Width="150" Text="a fox jumps over the lazy dog"></TextBox>
-                                <TextBlock>Truncate to 20 is:</TextBlock>
+                                <TextBlock>Truncate end is:</TextBlock>
                                 <TextBlock Margin="0" Text="{Binding Text, ElementName=txtStr2, Converter={StaticResource Max20LengthConverter}}"/>
+                                <TextBlock>, start is:</TextBlock>
+                                <TextBlock Margin="0" Text="{Binding Text, ElementName=txtStr2, Converter={conv:TextTruncateConverter EllipsisPlacement=Start, MaxLength=20}}"/>
+                                <TextBlock>, center is:</TextBlock>
+                                <TextBlock Margin="0" Text="{Binding Text, ElementName=txtStr2, Converter={conv:TextTruncateConverter EllipsisPlacement=Center, MaxLength=20,EllipsisString=……}}"/>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="Mask">
@@ -468,6 +478,18 @@
                                 <TextBox x:Name="txtDictStr" Width="140" Text="a=1,b=2,c=3" Margin="5"/>
                                 <ComboBox SelectedIndex="0" Name="cbDict" Width="80" ItemsSource="{Binding Text, ElementName=txtDictStr, Converter={conv:StringToDictionaryConverter}}" DisplayMemberPath="Key" SelectedValuePath="Value"/>
                                 <TextBlock Text="{Binding ElementName=cbDict,Path=SelectedValue}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="StringToDictionary">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{conv:MultiStringConcatConverter Separator=', '}">
+                                            <Binding ElementName="txtStr1" Path="Text"/>
+                                            <Binding ElementName="txtMaskStr" Path="Text"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -512,12 +534,20 @@
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="TypeCast">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="txtObjTest3" Text="0" Width="120"/>
+                                <TextBlock>Text:</TextBlock>
+                                <ComboBox SelectedIndex="{Binding ElementName=txtObjTest3,Path=Text,Converter={conv:TypeCastConverter TargetType=sys:Int16,DefaultValue=2}}" ItemsSource="{Binding Converter={conv:StringToListConverter Source='1,2,3,4'}}"/>
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="SwitchCase">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox Name="cbSwitches" Width="90" SelectedIndex="0" ItemsSource="{Binding Converter={conv:StringToListConverter Source='Unknow,Active,Inactive,Pending,Deleted'}}"/>
                                     <TextBlock>Result is:</TextBlock>
                                     <TextBlock Text="{Binding ElementName=cbSwitches,Path=Text,Converter={StaticResource StatusSwitchConverter}}"/>
+                                    <TextBlock Text="{Binding ElementName=cbSwitches,Path=SelectedIndex,Converter={conv:IndexToObjectConverter OptionList={StaticResource StringSource},DefaultValue=-}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox Name="cbSwitches1" Width="90" SelectedIndex="0" ItemsSource="{Binding Converter={conv:StringToListConverter Source='Unknow,Pending,Approved,Shipped,Delivered,Cancelled'}}"/>
@@ -527,7 +557,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <ComboBox Name="cbSwitches2" Width="90" SelectedIndex="0" ItemsSource="{Binding Converter={conv:StringToListConverter Source='0,1,2,3,4,5'}}"/>
                                     <TextBlock>Result is:</TextBlock>
-                                    <TextBlock Text="{Binding ElementName=cbSwitches2,Path=Text,Converter={conv:ValueMapConverter Mapping='1=⏳,2=✅,3=🚚,4=📦,5=❌', DefaultValue=-}}"/>
+                                    <TextBlock Text="{Binding ElementName=cbSwitches2,Path=Text,Converter={conv:StringMappingConverter MappingString='1=⏳,2=✅,3=🚚,4=📦,5=❌', DefaultValue=-}}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -736,7 +766,7 @@
                         <GroupBox Header="StringOperation">
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Name="tbExpSrc" Text="0"></TextBox>
-                                <TextBlock>lenth =</TextBlock>
+                                <TextBlock>length =</TextBlock>
                                 <TextBlock Grid.Column="2" Text="{Binding ElementName=tbExpSrc,Path=Text,Converter={conv:ExpressionConverter Formula='len(\'#\')'}}"></TextBlock>
                                 <TextBlock>, trim =</TextBlock>
                                 <TextBlock Grid.Column="2" Text="{Binding ElementName=tbExpSrc,Path=Text,Converter={conv:ExpressionConverter Formula='trim(\'#\')'}}"></TextBlock>
@@ -754,30 +784,6 @@
             <TabItem Header="Method">
                 <ScrollViewer Padding="5" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <GroupBox Header="EnumToTuple" Visibility="Collapsed">
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>UseDescription=False</TextBlock>
-                                    <ComboBox Name="cbEnum3" Margin="5" SelectedIndex="0" ItemsSource="{Binding Source={x:Type local:TestEnum}, Converter={conv:EnumToTupleConverter}}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding}" Margin="0"/>
-                                                    <TextBlock Text="{Binding Item1}" Margin="0"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                    <TextBlock Text="{Binding ElementName=cbEnum3,Path=SelectedValue}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>UseDescription=True</TextBlock>
-                                    <ComboBox Name="cbEnum4" Margin="5" SelectedIndex="0" ItemsSource="{Binding Source={x:Type local:TestEnum}, Converter={conv:EnumToTupleConverter UseDescription=True}}"/>
-                                    <TextBlock Text="{Binding ElementName=cbEnum4,Path=SelectedValue}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </GroupBox>
-
                         <GroupBox Header="String">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -803,7 +809,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox x:Name="txtMathExtension1" Width="100" Text="100" Margin="5"/>
                                     <TextBlock>Math.Abs is</TextBlock>
-                                    <TextBlock Text="{Binding Text, ElementName=txtMathExtension1, Converter={conv:MethodConverter TargetType={x:Type sys:Math}, MethodName=Abs}}"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtMathExtension1, Converter={conv:MethodConverter TargetType={x:Type sys:Math}, MethodName=abs, IgnoreCase=True}}"/>
                                     <TextBlock>, Math.Log10 is</TextBlock>
                                     <TextBlock Text="{Binding Text, ElementName=txtMathExtension1, Converter={conv:MethodConverter TargetType={x:Type sys:Math},MethodName=Log10},StringFormat=0.000}"/>
                                 </StackPanel>
@@ -847,12 +853,12 @@
                                     <Slider x:Name="sldExten" Width="100" Minimum="1" Maximum="100" Margin="5" TickFrequency="1"/>
                                     <TextBlock>ToChinese is</TextBlock>
                                     <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToChineseNumber}}"/>
-                                    <TextBlock> UpperCase </TextBlock>
+                                    <TextBlock> UpperCase</TextBlock>
                                     <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToChineseNumber,ParameterStr=true}}"/>
                                     <TextBlock>, ToRoman is</TextBlock>
                                     <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=ToRomanNumeral}}"/>
                                     <TextBlock>, IsPrime is</TextBlock>
-                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=IsPrime}}"/>
+                                    <TextBlock Text="{Binding Value, ElementName=sldExten, Converter={conv:MethodConverter TargetType={x:Type ext:NumberExtensions},MethodName=isprime,IgnoreCase=True}}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
@@ -878,10 +884,17 @@
                         </GroupBox>
 
                         <GroupBox Header="StringToDictionary &amp; Switch">
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox Name="cbSwitches3" Width="90" SelectedIndex="0" ItemsSource="{Binding Converter={conv:StringToListConverter Source='0,1,2,3,4,5'}}"/>
-                                <TextBlock>Result is:</TextBlock>
-                                <TextBlock Text="{Binding ElementName=cbSwitches3,Path=Text,Converter={conv:SwitchConverter Cases={conv:ConverterProperty FromConverter={conv:StringToDictionaryConverter Source='1=⏳,2=✅,3=🚚,4=📦,5=❌'}}}}"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox Name="cbSwitches3" Width="50" SelectedIndex="0" ItemsSource="{Binding Converter={conv:StringToListConverter Source='0,1,2,3,4,5'}}"/>
+                                    <TextBlock>Result is:</TextBlock>
+                                    <TextBlock Text="{Binding ElementName=cbSwitches3,Path=Text,Converter={conv:SwitchConverter Cases={conv:ConverterProperty FromConverter={conv:StringToDictionaryConverter Source='1=⏳,2=✅,3=🚚,4=📦,5=❌'}},DefaultValue=-}}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>Input a/b/c to switch</TextBlock>
+                                    <TextBox x:Name="txtSwitch" Width="50" Text="a"/>
+                                    <TextBlock Text="{Binding Text, ElementName=txtSwitch,Converter={conv:SwitchConverter Cases={conv:ConverterProperty FromConverter={conv:StringToDictionaryConverter Source='a=1,b=2,c=3'}},IgnoreCase=True,DefaultValue=0}}"/>
+                                </StackPanel>
                             </StackPanel>
                         </GroupBox>
 
@@ -901,6 +914,23 @@
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="TypeMarkupExtension">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Slider Value="{t:Double 5}" Width="80"/>
+                        <TextBlock Text="{Binding Source={t:Enum local:TestEnum,Option1}}"/>
+                        <ComboBox ItemsSource="{t:IntList '1,2,3'}" Height="24" SelectedIndex="0"/>
+                        <ComboBox ItemsSource="{t:EnumValues local:TestEnum}" Height="24" SelectedIndex="0"/>
+                        <TextBlock Text="{Binding Source={t:Point 10,20}}"/>
+                        <TextBlock Text="{Binding Source={t:Size 100, 200}}"/>
+                        <TextBlock Text="{Binding Source={t:Rect 0, 0, 100, 100}}"/>
+                        <TextBlock Text="{Binding Source={t:Vector 5, 10}}"/>
+                        <Ellipse Width="20" Height="20" Margin="2" Fill="{t:Brush red}"/>
+                        <Ellipse Width="20" Height="20" Margin="2" Fill="{t:Brush {t:Color 200,100,100,0.5}}"/>
+                        <Ellipse Width="20" Height="20" Margin="2" Fill="{t:Brush {t:HSLColor 180,1,0.5,0.5}}"/>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
